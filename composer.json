@@ -2,7 +2,7 @@
   "name": "elpho/lang",
   "description": "Language extensions for the elpho framework",
   "require": {
-    "elpho/event": ">=0.0.0"
+    "elpho/event": "0.1.*"
   },
   "autoload": {
     "psr-4": {
