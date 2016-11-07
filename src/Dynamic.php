@@ -9,7 +9,9 @@
       $backtrace = debug_backtrace();
       $validKeys = array($key,"call_user_func_array","__call");
 
-      $obj = $backtrace[1]["object"];
+      $obj = null;
+      if(isset($backtrace[1]["object"]))
+        $obj = $backtrace[1]["object"];
 
       foreach($backtrace as $index => $jump){
         if(!in_array($jump["function"],$validKeys)) break;
