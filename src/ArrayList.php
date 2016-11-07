@@ -55,7 +55,7 @@
       }
     }
     public function join($separator=""){
-      return new String(implode($separator,$this->elements));
+      return new Text(implode($separator,$this->elements));
     }
     public function lastIndexOf($element,$offset=null){
       $lastIndex = $this->getLastKey();
@@ -134,7 +134,7 @@
     }
     public function filter($callback=null){
       $default = function($element){
-        if(is_a($element,"elpho\lang\String"))
+        if(is_a($element,"elpho\lang\Text"))
           return !$element->isEmpty();
         return !!$element;
       };

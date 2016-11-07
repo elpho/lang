@@ -30,7 +30,7 @@
 
         $keys = static::$parameters;
 
-        $modifier = new Object();
+        $modifier = new ProtoObject();
 
         $params = array();
         preg_match_all(self::$parameterPattern, $matches[2][$i], $params);

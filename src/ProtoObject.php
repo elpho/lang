@@ -4,7 +4,7 @@
   use elpho\event\EventHandler;
   use elpho\event\Event;
 
-  class Object extends EventHandler implements \ArrayAccess, \Iterator{
+  class ProtoObject extends EventHandler implements \ArrayAccess, \Iterator{
     private $_prototype;
     private $properties;
 
@@ -100,17 +100,17 @@
 
     //extend as prototype
     public function __invoke($properties=array()){
-      return new Object($properties,$this);
+      return new ProtoObject($properties,$this);
     }
 
     //extend as prototype for javascript people
-    public static function create(Object $object, $_=null){
-      return new Object(array(),ArrayList::create(func_get_args()));
+    public static function create(ProtoObject $object, $_=null){
+      return new ProtoObject(array(),ArrayList::create(func_get_args()));
     }
 
-    public static function merge(Object $object, Object $_=null){
+    public static function merge(ProtoObject $object, ProtoObject $_=null){
       $args = func_get_args();
-      $new = new Object();
+      $new = new ProtoObject();
 
       foreach ($args as $obj) {
         foreach ($obj as $key => $value) {
@@ -160,7 +160,7 @@
       call_user_func_array($closure,$params);
     }
     public function duplicate(){
-      $new = new Object();
+      $new = new ProtoObject();
       foreach($this->properties as $name => $value){
         $new->{$name} = $value;
       }
@@ -173,7 +173,7 @@
       return '[object '.get_class($this).']';
     }
     public function toJson(){
-      $final = new String();
+      $final = new Text();
       $propertyList = new ArrayList();
 
       foreach($this->properties as $name => $value){

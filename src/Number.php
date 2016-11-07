@@ -15,15 +15,15 @@
     }
 
     public function toHex(){
-      $value = new String($this->value);
+      $value = new Text($this->value);
       $double = $this->double?$this->double:$value->length();
       $value = $value->substring(0,$double);
 
-      $value = new String(self::convertHex($value));
+      $value = new Text(self::convertHex($value));
       return $value->toUpperCase();
     }
     public function toOct(){
-      $value = new String($this->value);
+      $value = new Text($this->value);
       $double = $this->double?$this->double:$value->length();
       $value = $value->substring(0,$double)->toString();
       return decoct($value);

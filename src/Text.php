@@ -1,7 +1,8 @@
 <?php
   namespace elpho\lang;
 
-  class String{
+  //Renamed from Text to Text
+  class Text{
     private $value = "";
 
     public function __construct($value=""){
@@ -9,7 +10,7 @@
     }
 
     public function concat($value){
-      return new String($this->value.$value);
+      return new Text($this->value.$value);
     }
 
     public function length(){
@@ -21,7 +22,7 @@
     }
 
     public function charAt($index){
-      return new String(substr($this->value,$index,1));
+      return new Text(substr($this->value,$index,1));
     }
 
     public function substring($start,$end=null){
@@ -35,7 +36,7 @@
         $end = $this->length() + $end;
 
       $length = $end - $start +1;
-      return new String(substr($this->value,$start,$length));
+      return new Text(substr($this->value,$start,$length));
     }
 
     public function substr($start,$length=null){
@@ -47,7 +48,7 @@
       if(!$length)
         $length = $this->length()-$start;
 
-      return new String(substr($this->value,$start,$length));
+      return new Text(substr($this->value,$start,$length));
     }
 
     public function split($delimiter="",$limit=false){
@@ -57,14 +58,14 @@
       $primitive = explode($delimiter,$this->value,$limit);
       $list = array();
       foreach($primitive as $str){
-        $list[] = new String($str);
+        $list[] = new Text($str);
       }
 
       return ArrayList::create($list);
     }
 
     public function reverse(){
-      return new String(strrev($this->value));
+      return new Text(strrev($this->value));
     }
 
     public function contains($sequence){
@@ -115,16 +116,16 @@
       $string = htmlentities($string,ENT_COMPAT,$charset);
       $string = strtolower($string);
       $string = html_entity_decode($string,ENT_COMPAT,$charset);
-      return new String($string);
+      return new Text($string);
     }
 
     public function toUpperCase($charset='UTF-8'){
       $string = $this->value;
       $string = htmlentities($string,ENT_COMPAT,$charset);
       $string = strtoupper($string);
-      $string = String::fixUpperCaseEntities($string);
+      $string = Text::fixUpperCaseEntities($string);
       $string = html_entity_decode($string,ENT_COMPAT,$charset);
-      return new String($string);
+      return new Text($string);
     }
 
     public function capitalize($charset='UTF-8'){
@@ -135,7 +136,7 @@
         $string = $primitive[0];
         $string = htmlentities($string,ENT_COMPAT,$charset);
         $string = strtoupper($string);
-        $string = String::fixUpperCaseEntities($string);
+        $string = Text::fixUpperCaseEntities($string);
         $string = html_entity_decode($string,ENT_COMPAT,$charset);
         $primitive[0] = $string;
 
@@ -153,7 +154,7 @@
         $end = strpos($string,";",$lastIndex) - ($i+1);
         $string = substr($string,0,$lastIndex).strtolower(substr($string,$lastIndex,$end)).substr($string,$lastIndex+$end);
       }
-      return new String($string);
+      return new Text($string);
     }
 
     public function startsWith($sequence){
@@ -164,24 +165,24 @@
     }
 
     public function trim(){
-      return new String(trim($this->value));
+      return new Text(trim($this->value));
     }
 
     public function replace($procura,$substituto,$limite=false){
       if($procura == "")
-        return new String($this->value);
+        return new Text($this->value);
 
       $limite = $limite?$limite+1:($this->length()===0?1:$this->length());
       return $this->split($procura,$limite)->join($substituto);
     }
 
     public function replaceExpression($regex,$substituto){
-      return new String(preg_replace($regex,$substituto,$this->value));
+      return new Text(preg_replace($regex,$substituto,$this->value));
     }
 
     public static function format($formatString,$args=false){
       $args = func_get_args();
-      return new String(apply("sprintf",$args));
+      return new Text(apply("sprintf",$args));
     }
 
     public function hashCode(){
@@ -194,8 +195,8 @@
     }
 
     public function toObject(){
-      $work = new String($this);
-      $work = $work->replace("(","new Object(array(");
+      $work = new Text($this);
+      $work = $work->replace("(","new ProtoObject(array(");
       $work = $work->replace(")","))");
       $obj = eval("return ".$work->toString().";");
       return $obj;
