@@ -1,7 +1,7 @@
 <?php
   namespace elpho\lang;
 
-  //Renamed from Text to Text
+  //Renamed from String to Text
   class Text{
     private $value = "";
 
