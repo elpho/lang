@@ -79,7 +79,7 @@
     }
 
     private function buildPrototypeList($prototype,$_=null){
-      if(is_a($prototype,"elpho\lang\ArrayList")){
+      if(is_a($prototype,"elpho\lang\ArrayList"))
         return $prototype;
 
       if(is_array($prototype))
