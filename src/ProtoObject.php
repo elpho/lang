@@ -59,7 +59,7 @@
 
       $prototypeList = call_user_func_array(
         array($this, 'buildPrototypeList'),
-        func_get_args()
+        $prototypeArgs->toPrimitive()
       );
       $prototypeList = $prototypeList->filter();
 
@@ -78,7 +78,7 @@
       }
     }
 
-    private function buildPrototypeList($prototype,$_=null){
+    private function buildPrototypeList($prototype=null,$_=null){
       if(is_a($prototype,"elpho\lang\ArrayList"))
         return $prototype;
 
