@@ -171,7 +171,7 @@
 
       $closure = array($subject, $key);
 
-      call_user_func_array($closure,$params);
+      return call_user_func_array($closure,$params);
     }
     public function duplicate(){
       $new = new ProtoObject();
