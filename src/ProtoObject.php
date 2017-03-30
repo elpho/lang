@@ -54,13 +54,17 @@
 
     //constructor
     public function __construct($properties=array(),$prototype=null,$_=null){
-      $prototypeList = $prototype;
-      if(!is_a($prototype,"ArrayList")){
-        $prototypeList = ArrayList::create(func_get_args());
-        $prototypeList->shift();
-        if($prototypeList->isEmpty())
-          $prototypeList->push(new Dynamic());
-      }
+      $prototypeArgs = ArrayList::create(func_get_args());
+      $prototypeArgs->shift();
+
+      $prototypeList = call_user_func_array(
+        array($this, 'buildPrototypeList'),
+        func_get_args()
+      );
+      $prototypeList = $prototypeList->filter();
+
+      if($prototypeList->isEmpty())
+        $prototypeList->push(new Dynamic());
 
       $this->_prototype = $prototypeList;
       $this->properties = new Dynamic();
@@ -72,6 +76,16 @@
         }
         $this->properties->{$key} = $value;
       }
+    }
+
+    private function buildPrototypeList($prototype,$_=null){
+      if(is_a($prototype,"elpho\lang\ArrayList")){
+        return $prototype;
+
+      if(is_array($prototype))
+        return new ArrayList_from($prototype);
+
+      return new ArrayList_from(func_get_args());
     }
 
     //implementing array access
